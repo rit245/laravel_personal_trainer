@@ -1,0 +1,92 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel Home Traning API",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/v1/how-to-lose-weight": {
+            "get": {
+                "tags": [
+                    "체중 조절 컨설팅"
+                ],
+                "summary": "체중 조절 컨설팅 안내",
+                "description": "사용자의 [생활 스타일 태그 / 선호하는 해결책 유형] 기반으로 체중 감량에 대한 개인화된 조언 제공",
+                "operationId": "getHowToLoseWeight",
+                "parameters": [
+                    {
+                        "name": "solutionType",
+                        "in": "query",
+                        "description": "해결책 유형 (DIET / FITNESS / 공백값), 비워둘 경우 모든 유형의 추천을 제공",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "lifeStyleTags",
+                        "in": "query",
+                        "description": "사용자의 생활 스타일을 나타내는 태그, 쉼표로 구분",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "성공적으로 추천 정보를 반환",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "recommendations": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Recommendation"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "잘못된 요청",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "에러 메시지",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Recommendation": {
+                "properties": {
+                    "solutionType": {
+                        "description": "추천 유형 (DIET 또는 FITNESS)",
+                        "type": "string"
+                    },
+                    "recommendationName": {
+                        "description": "추천 프로그램 이름",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
