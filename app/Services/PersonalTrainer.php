@@ -22,7 +22,7 @@ class PersonalTrainer {
 
         if ($solutionType === 'FITNESS' || empty($solutionType)) {
             $fitnessRecommendations = $this->fitnessCoach->getRecommendations($lifeStyleTagsArray);
-            $recommendations = array_merge($recommendations, $this->formatRecommendations((array)$fitnessRecommendations, 'FITNESS'));
+            $recommendations = array_merge($recommendations, $this->formatRecommendations($fitnessRecommendations, 'FITNESS'));
         }
 
         return $recommendations;
